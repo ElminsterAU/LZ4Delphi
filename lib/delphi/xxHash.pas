@@ -40,10 +40,11 @@
 
 unit xxHash;
 {$POINTERMATH ON}
+{$Q-} // doesn't work with overflow checking
 
 interface
 
-uses Windows;
+uses Windows, lz4common;
 
 const
     PRIME32_1: cardinal = 2654435761;

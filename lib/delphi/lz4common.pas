@@ -39,11 +39,23 @@
 
 unit lz4common;
 {$POINTERMATH ON}
-{$I lz4AppDefines.inc}
+{$Q-}
+{$R-}
+
 
 interface
 
 uses Windows;
+
+type
+    ppByte = ^pByte;
+    {$IFDEF WIN32}
+    size_t = Cardinal;
+    {$ENDIF WIN32}
+    {$IFDEF WIN64}
+    size_t = UInt64;
+    {$ENDIF WIN64}
+    psize_t = ^size_t;
 
 const
     MINMATCH = 4;
@@ -57,9 +69,6 @@ const
     ML_MASK = (1 shl ML_BITS) - 1;
     RUN_BITS = 8 - ML_BITS;
     RUN_MASK = (1 shl RUN_BITS) - 1;
-
-type
-    ppByte = ^pByte;
 
 function LZ4_read32(const memPtr: pointer): cardinal;
 function LZ4_read64(const memPtr: pointer): uint64; inline;

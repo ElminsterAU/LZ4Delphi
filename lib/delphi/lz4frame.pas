@@ -38,10 +38,12 @@
 *)
 unit lz4frame;
 {$POINTERMATH ON}
+{$Q-}
+{$R-}
 
 interface
 
-uses Windows, xxHash, lz4frame_static, lz4, lz4HC;
+uses Windows, xxHash, lz4frame_static, lz4, lz4HC, lz4common;
 
 const
     LZ4F_VERSION = 100;
@@ -197,7 +199,7 @@ end;
 function LZ4F_getErrorName(code : LZ4F_errorCode_t ): pAnsiChar;
 begin
       result:=  'Unspecified error code';
-      if LZ4F_isError(code) then exit (pAnsiChar(LZ4F_errorStrings[-integer(code)]);
+      if LZ4F_isError(code) then exit (pAnsiChar(LZ4F_errorStrings[-integer(code)]));
 end;
 
 function LZ4F_compressFrameBound(srcSize: size_t; const preferencesPtr: PLZ4F_preferences_t): size_t;
